@@ -1,0 +1,49 @@
+body{
+    background-color: rgb(197, 145, 245);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    width: 70%;
+    margin: 10% auto;
+  /* grid-template-columns: repeat(3, 1fr); 3 columns with equal width */
+  /* grid-gap: 2px; Adjust the gap between items as needed */
+}
+
+.grid-container img {
+  margin: 10px 0;
+  /* justify-self: center; */
+  /* justify-content: space-around; Maintain aspect ratio */
+}
+
+.bt-container {
+  text-align: center;
+}
+
+.bt-link {
+  width: 30%;
+  height: 50px;
+  border-radius: 20px;
+  background-color:blueviolet;
+  
+}
+
+.bt-link content {
+  font-size: large;
+  font-weight: 400;
+  color: white;
+}
+
+#book_panel{
+    width: 150px;
+}
+#title{
+ font-weight: bold;
+}
+#author{
+    font-style: italic;
+}
+#rating{
+    font-style: normal;
+}
