@@ -11,7 +11,7 @@ import './App.css';
 
 function App() {
   return (
-    // <div className="App">
+    // <div className={styles.App} style={styles}>
       <header className="header-section">
         <nav class="nav-section">
             <div class="rectangle full"></div>
@@ -38,44 +38,45 @@ function App() {
                                 <li class="nav-item">
                                     <a class="nav-link" href="login">Login</a></li>
                             </ul> 
+                    </div>
+                </div>
+                <div class={"flex2"}>
+                    <div class={"content"}>
+                        <h1 class="head-line">
+                            A perfect learning <span class="span-kd">for your kids</span>
+                        </h1>
+                        <p className={"pre-content"}>
+                            Cultivating a lifelong love for reading in <br/>
+                            children, for within the covers of books lie the<br/> 
+                            keys to creativity, wisdom, and excellence.<br/>
+                        </p> 
+                    </div>
+                    <div class="frames">
+                        <img src={Rectangle_3_1} alt="" class="rec3"/>
+                        <img src={Frame_52} alt="" class="rec4"/>
+                        <img src={Frame_54} alt="" class="rec5"/>
+                        <div class="where">
+                            <img src={where}  alt="" />
+                            {/* <span>Where Everything You Need To Know</div>
+                            <span>Is Only An Arm's Length Away!</span> */}
                         </div>
                     </div>
-                    {/* <div class="flex2">
-                        
-                    </div> */}
-                    <div class="mini-content">
-                            <h1 class="head-line">
-                              A perfect learning <span class="span-kd">for your kids</span>
-                            </h1>
-                            <p className={"pre-content"}>
-                                Cultivating a lifelong love for reading in <br/>
-                                children, for within the covers of books lie the<br/> 
-                                keys to creativity, wisdom, and excellence.<br/>
-                            </p> 
-                        </div>
-                        <div class="frames">
-                            <img src={Rectangle_3_1} alt="" class="rec3"/>
-                            <img src={Frame_52} alt="" class="rec4"/>
-                            <img src={Frame_54} alt="" class="rec5"/>
-                            <div class="where">
-                                <img src={where}  alt="" />
-                            </div>
-                        </div>
                     <div class="kid-container">
-                            <img src={kid5_1} alt="kid image" class="kid-image"/>
-                            <img src={Group_3} alt="" class="gp-image"/>
-                          
-                                <div class="social">
-                                    <div>
-                                        <p>Follow: _________</p></div>
-                                    <div class="font-awesome">
-                                        <i class="fa fa-facebook"></i>
-                                        <i class="fa fa-linkedin"></i>
-                                        <i class="fa fa-twitter"></i>  
-                                    </div>
+                        <img src={kid5_1} alt="kid image" class="kid-image"/>
+                        <img src={Group_3} alt="" class="gp-image"/>
+                        
+                            <div class="social">
+                                <div>
+                                    <p>Follow: _________</p></div>
+                                <div class="font-awesome">
+                                    <i class="fa fa-facebook"></i>
+                                    <i class="fa fa-linkedin"></i>
+                                    <i class="fa fa-twitter"></i>  
                                 </div>
+                            </div>
                     </div> 
                 </div>
+            </div>
             </nav>
       </header>
     // </div>

@@ -1,46 +1,3 @@
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-body {
-  background-color: white;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
 nav{
   position: relative;
   height: 100px;
@@ -122,6 +79,7 @@ nav{
 
 .mini-content {
   margin-top: 20px;
+  width: 40%;
 }
 
 h1 {
@@ -152,6 +110,7 @@ p {
 .flex2 {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .content {
@@ -160,47 +119,52 @@ p {
 }
 
 .rec3 {
-  margin-right: 10px;
+  position: relative;
+  right: 6px
 }
 .frames {
-  position: relative;
-  display: inline;
+  right: 39px;
+  position: absolute;
+  top: 92px;
+  width: 254px;
 }
 .rec4 {
-  position: absolute;
-  top: 50px;
-  right: 70px;
+  position: relative;
+  top: -403px;
+  z-index: 5;
+  right: 26px;
 }
 
 .rec5 {
-  position: absolute;
-  display: inline;
-  bottom: 120px;
-  right: 70px;
+  position: relative;
+  top: -765px;
+  z-index: 10;
+  right: 27px;
 }
 
 
 .kid-container {
   display: inline;
   position: absolute;
+  top: 424px;
+  left: 50px;
 }
 
 
 .kid-image {
- margin-left: 80px;
-  margin-top: 592px;
+ /* margin-left: 80px;
+  margin-top: 592px; */
 }
 
 .gp-image {
   margin-left: 30px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .where {
   position: absolute;
-  bottom: -150px; /* Adjust as needed */
-  right: 30px; /* Adjust as needed */
- /* Adjust as needed */
+  bottom: 468px;
+  right: 30px;
 }
 
 .social{
@@ -224,5 +188,3 @@ p {
   color: grey;
   padding:2px;
 }
-
-
