@@ -6,17 +6,24 @@
   display: grid;
   grid-template-columns:3fr 3fr 3fr;
   width: 90%;
+  height: auto;
   margin:10% auto;
   justify-items: center;
   row-gap: 40px;
   margin-top: 5px;
 }
 
-h4 {
+.description{
+  width: 60%;
+  margin: 11px;
+  height: auto;
   text-align: left;
-  font-size: 18px;
-  margin-left:12px;
-  margin-top: 10px;
+  font-size: 1.5vw;
+}
+.title {
+  font-size: 2vw;
+  font-weight: bold;
+  text-align: left;
 }
 
 .book-content {
@@ -24,7 +31,6 @@ h4 {
   height: auto;
   margin: 15px;
   box-sizing: border-box;
-  float: left;
   text-align: center;
   border-radius: 0;
   cursor: pointer;
@@ -35,10 +41,8 @@ h4 {
 
 }
 
-h5 {
+.price {
   text-align: left;
-  margin-left: 12px;
-  margin-top: -10px;
   font-weight: bolder;
 }
 
@@ -74,14 +78,14 @@ ul{
   border-radius: 15px;
   background-color:rgba(41, 0, 100, 1);
   color: white;
-  height: 30px;
-  width: 150px;
+  height: auto;
+  width: 80%;
   cursor: pointer;
 }
 
 .books-img {
-  width:200px;
-  height: 200px;
+  width:80%;
+  height: auto;
   text-align: center;
   margin: auto;
   display: block;
