@@ -12,11 +12,17 @@
   margin-top: 5px;
 }
 
-h4 {
+.description{
+  width: 80%;
+  margin: 11px;
+  height: 92px;
   text-align: left;
-  font-size: 18px;
-  margin-left:12px;
-  margin-top: 10px;
+  font-size: 1.5vw;
+}
+.title {
+  font-size: 2vw;
+  font-weight: bold;
+  text-align: left;
 }
 
 .book-content {
@@ -35,10 +41,8 @@ h4 {
 
 }
 
-h5 {
+.price {
   text-align: left;
-  margin-left: 12px;
-  margin-top: -10px;
   font-weight: bolder;
 }
 
@@ -74,14 +78,14 @@ ul{
   border-radius: 15px;
   background-color:rgba(41, 0, 100, 1);
   color: white;
-  height: 30px;
-  width: 150px;
+  height: auto;
+  width: 80%;
   cursor: pointer;
 }
 
 .books-img {
-  width:200px;
-  height: 200px;
+  width:80%;
+  height: auto;
   text-align: center;
   margin: auto;
   display: block;

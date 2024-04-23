@@ -50,16 +50,22 @@ function Books() {
             // debugger
             return (<div class="book-content" key={key}>
                         <img src={bookCoverEndpoint(cover_i)}  className="books-img" alt="book picture"/>
-                        <h4>{title} <br/><span>author:{author_name}</span></h4>
-                        <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                        <div class="list-btn">
+                        <div className='description'>
+                            <span className='title'>{title}</span>
+                            <br/>
+                            <span> by {author_name}</span>
+                            <br/>
+                            <span className='price'>N3,500 </span><br/><span class="hard">hard cover</span>
+                        {/* <div class="list-btn">
                             <ul>
                                 <li>{(ratings_average.toString(10)).slice(0,4)}</li>
                                 <li><img src={star} alt="star rating" class="star"/></li>
                             </ul> 
-                            <button class="btn" onClick={()=>addToCart({author_name, key,cover_i, title, ratings_average})} >Buy now</button> 
+                             
+                        </div> */}
                         </div>
-                        <h6>based on 120 ratings</h6>  
+                        <button class="btn" onClick={()=>addToCart({author_name, key,cover_i, title, ratings_average})} >Add to Cart</button>
+                        {/* <h6>based on 120 ratings</h6>   */}
                     </div>)
         }
 
