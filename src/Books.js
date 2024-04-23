@@ -55,7 +55,7 @@ function Books() {
                             <br/>
                             <span> by {author_name}</span>
                             <br/>
-                            <span className='price'>N3,500 </span><br/><span class="hard">hard cover</span>
+                            <span className='price'>N3,500 </span><br/><span class="hard"></span>
                         {/* <div class="list-btn">
                             <ul>
                                 <li>{(ratings_average.toString(10)).slice(0,4)}</li>
