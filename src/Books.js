@@ -4,16 +4,41 @@ import cart from './images/cart icon.png'
 import star from './images/star.png'
 
 import './Books.css';
+import { flushSync } from 'react-dom';
 
 function Books() {
     const savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
     const [addedItems, setItems] = useState(savedItems)
 
     
+    const removeBook = (bookdata)=>{
+        setItems(()=>{
+            let removeIndex = -1
+            for(let i=0; i< addedItems.length; i++){
+                if(addedItems[i].title === bookdata.title) {
+                    removeIndex = i
+                    break
+                }
+            }
+            if(removeIndex !== -1){
+                addedItems.slice(removeIndex, removeIndex+1)
+                localStorage.setItem('savedItems', JSON.stringify(addedItems))
+            }
+            return addedItems
+        })
+    }
     const addToCart = (bookdata)=>{
         setItems(()=>{
-            addedItems.push(bookdata)
-            localStorage.setItem('savedItems', JSON.stringify(addedItems))
+            let putItem = true
+            addedItems.forEach(element => {
+                if(element.title === bookdata.title){
+                    putItem = false
+                }
+            });
+            if(putItem){
+                addedItems.push(bookdata)
+                localStorage.setItem('savedItems', JSON.stringify(addedItems))
+            }
             return addedItems
         })
     }
@@ -110,6 +135,7 @@ function Books() {
                 </div>
             {cartToggle && <div className='addedItems'>
                 <div className="item">
+                <button onClick={removeBook}>X</button>
                     {addedItems.map(element => {
                         return CartBoook(element)
                     })}

@@ -53,29 +53,27 @@ function About() {
                         </p>  
                     </div>
                     <div class="item">
-                        <h3>Quality Assurance</h3>
+                        <h3>Curated Selection</h3>
                         <p>
-                        From sturdy bindings to<br/>
-                        vibrant illustrations our <br/>
-                        hard copy books are crafted <br/>
-                        with the utmost care and <br/>
-                        attention to detail,<br/>
-                        guaranteeing a delightful<br/> 
-                        reading experience for <br/>
-                        young.
+                        We handpick each book in<br/>
+                        our collection, ensuring <br/>
+                        that every title is not just  <br/>
+                        entertaining but also <br/>
+                        enriching, educational,<br/>
+                        and thought-provoking. 
                         </p>
                     </div>
                     <div class="item">
-                        <h3>Quality Assurance</h3>
+                        <h3>Community Engagement</h3>
                         <p>
-                        From sturdy bindings to<br/>
-                        vibrant illustrations our <br/>
-                        hard copy books are crafted <br/>
-                        with the utmost care and <br/>
-                        attention to detail,<br/>
-                        guaranteeing a delightful<br/> 
-                        reading experience for <br/>
-                        young.
+                        We are more than just a <br/>
+                        bookstore. We actively<br/>
+                        engage with parents, <br/>
+                        educators, and book  <br/>
+                        enthusiasts to share<br/>
+                        reading tips, recommendations, <br/> 
+                        and resources that promote  <br/>
+                        literacy and learning.
                         </p>
                     </div>
             </div>

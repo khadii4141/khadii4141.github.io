@@ -29,14 +29,7 @@ function App() {
                                 <li class="nav-item">
                                     <a class="nav-link" href="books">Books</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact">Contact Us</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="signup">Sign Up</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="login">Login</a></li>
+                                
                             </ul> 
                         </div>
                     </div>
@@ -48,9 +41,8 @@ function App() {
                               A perfect learning <span class="span-kd">for your kids</span>
                             </h1>
                             <p className={"pre-content"}>
-                                Cultivating a lifelong love for reading in <br/>
-                                children, for within the covers of books lie the<br/> 
-                                keys to creativity, wisdom, and excellence.<br/>
+                            Personalised books for adventurous<br/> 
+                            little minds...
                             </p> 
                         </div>
                         <div class="frames">
@@ -58,7 +50,9 @@ function App() {
                             <img src={Frame_52} alt="" class="rec4"/>
                             <img src={Frame_54} alt="" class="rec5"/>
                             <div class="where">
-                                <img src={where}  alt="" />
+                            Where Everything You Need To<br/> 
+                            Know Is Only An Arm’s Length<br/> 
+                            Away!
                             </div>
                         </div>
                     <div class="kid-container">

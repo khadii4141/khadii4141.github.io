@@ -161,10 +161,17 @@ p {
   /* margin-bottom: 20px; */
 }
 
+
 .where {
   position: absolute;
   bottom: 468px;
   right: 30px;
+  align-items: center;
+  color:rgba(55, 97, 121, 1);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26.66px;
 }
 
 .social{
