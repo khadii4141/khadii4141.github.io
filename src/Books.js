@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import c1 from './images/c1.png'
 import cart from './images/cart icon.png'
 import star from './images/star.png'
@@ -9,107 +9,86 @@ import { flushSync } from 'react-dom';
 function Books() {
     const savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
     const [addedItems, setItems] = useState(savedItems)
-
+    const [books, setBooks] = useState([])
+    const [cartToggle, setCartToggle] = useState(false)
+    const [cost, setCost] = useState(0)
+    const cartItems = useMemo(()=>{
+            return addedItems
+    }, [addedItems])
     
     const removeBook = (bookdata)=>{
-        setItems(()=>{
-            let removeIndex = -1
-            for(let i=0; i< addedItems.length; i++){
-                if(addedItems[i].title === bookdata.title) {
-                    removeIndex = i
-                    break
-                }
-            }
-            if(removeIndex !== -1){
-                addedItems.slice(removeIndex, removeIndex+1)
-                localStorage.setItem('savedItems', JSON.stringify(addedItems))
-            }
-            return addedItems
-        })
+        const filteredItems = addedItems.filter(item => item.title !== bookdata.title);
+        if (filteredItems.length !== addedItems.length) { 
+            setItems(filteredItems);
+            localStorage.setItem('savedItems', JSON.stringify(filteredItems));
+            setCost((currentCost)=>{
+                return currentCost - 3500
+              })
+        }
     }
-    const addToCart = (bookdata)=>{
-        setItems(()=>{
-            let putItem = true
-            addedItems.forEach(element => {
-                if(element.title === bookdata.title){
-                    putItem = false
-                }
-            });
-            if(putItem){
-                addedItems.push(bookdata)
-                localStorage.setItem('savedItems', JSON.stringify(addedItems))
-            }
-            return addedItems
-        })
-    }
+    const addToCart = (bookdata) => {
+        const foundItem = addedItems.find(item => item.title === bookdata.title);
+      
+        if (!foundItem) {
+          setItems([...addedItems, bookdata]); // Spread operator for new array
+          localStorage.setItem('savedItems', JSON.stringify([...addedItems, bookdata]));
+          setCost((currentCost)=>{
+            return currentCost + 300
+          })
+        }
+      };
     const searchTopic = 'kid+books'
     const bookSearchEndpoint = (searchTopic)=>{ 
         return `https://openlibrary.org/search.json?q=${searchTopic}&fields=key,author_name,title,ratings_average,cover_i&limit=20`
     }
     const bookCoverEndpoint = (coverid)=>{return `https://covers.openlibrary.org/b/id/${coverid}-M.jpg`} 
     
-        const requestOptions = {
-            method: "GET",
-            redirect: "follow"
-          };
-        
-        const [books, setBooks] = useState([])
-        const [cartToggle, setCartToggle] = useState(false)
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+        };
             
-        useEffect(()=>{
-            fetch(bookSearchEndpoint(searchTopic), requestOptions)
-            .then((response) => response.text())
-            .then((result) => {
-                setBooks(JSON.parse(result).docs)
-                // console.log(`Returned Books are ${returnedBooks.length}`)
-                // returnedBooks.forEach(book=>{
-                //     console.log(`${book.title} by ${(book.author_name)[0]} rated ${book.ratings_average}`)
-                // })    
-            })
-            .catch((error) => {
-                console.log('Error')
-                console.error(error)
-            });
-        }, searchTopic)
-        const BookComponent =  ({author_name, key,cover_i, title, ratings_average})=>{
-            // debugger
-            return (<div class="book-content" key={key}>
-                        <img src={bookCoverEndpoint(cover_i)}  className="books-img" alt="book picture"/>
-                        <div className='description'>
-                            <span className='title'>{title}</span>
-                            <br/>
-                            <span> by {author_name}</span>
-                            <br/>
-                            <span className='price'>N3,500 </span><br/><span class="hard"></span>
-                        {/* <div class="list-btn">
-                            <ul>
-                                <li>{(ratings_average.toString(10)).slice(0,4)}</li>
-                                <li><img src={star} alt="star rating" class="star"/></li>
-                            </ul> 
-                             
-                        </div> */}
-                        </div>
-                        <button class="btn" onClick={()=>addToCart({author_name, key,cover_i, title, ratings_average})} >Add to Cart</button>
-                        {/* <h6>based on 120 ratings</h6>   */}
-                    </div>)
-        }
-
-        const CartBoook = ({author_name, key,cover_i, title, ratings_average})=>{
-            return (
-                    <div>
-                        <img src={bookCoverEndpoint(cover_i)}  className="cart-books-img" alt="book picture"/>
+    useEffect(()=>{
+        fetch(bookSearchEndpoint(searchTopic), requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+            setBooks(JSON.parse(result).docs)   
+        })
+        .catch((error) => {
+            console.log('Error')
+            console.error(error)
+        });
+    }, searchTopic)
+    const BookComponent =  ({author_name, key,cover_i, title, ratings_average})=>{
+        return (<div class="book-content" key={key}>
+                    <img src={bookCoverEndpoint(cover_i)}  className="books-img" alt="book picture"/>
+                    <div className='description'>
+                        <span className='title'>{title}</span>
                         <br/>
-                        <span>{title}</span>
-                        <input type='text' placeholder='quantity'/>
-                        <hr/>
+                        <span> by {author_name}</span>
+                        <br/>
+                        <span className='price'>N3,500 </span><br/><span class="hard"></span>
                     </div>
-                )
-        }
-        const toggleCart = ()=>{
-            setCartToggle(()=>{
-                return !cartToggle
-            })
-        }
+                    <button class="btn" onClick={()=>addToCart({author_name, key,cover_i, title, ratings_average})} >Add to Cart</button>
+                </div>)
+    }
+
+    const CartBoook = ({author_name, key,cover_i, title, ratings_average})=>{
+        return (
+                <div id='cart-item-body'>
+                    <img src={bookCoverEndpoint(cover_i)}  id="cart-books-img" alt="book picture"/>
+                    <span id='cart-item-title'>{title}</span>
+                    <span id='cart-item-qty'>Qty:</span>
+                    <input type='text' placeholder='quantity' defaultValue={1} id='cart-item-qty-input'/>
+                    <a id='cart-remove-btn' onClick={()=>removeBook({author_name, key,cover_i, title, ratings_average})}>Remove</a>
+                </div>
+            )
+    }
+    const toggleCart = ()=>{
+        setCartToggle(()=>{
+            return !cartToggle
+        })
+    }
     
     return (
         <header className="header-section">
@@ -133,176 +112,25 @@ function Books() {
                         <li class="seven-ten">age 7-10</li>
                     </ul>
                 </div>
-            {cartToggle && <div className='addedItems'>
-                <div className="item">
-                <button onClick={removeBook}>X</button>
-                    {addedItems.map(element => {
-                        return CartBoook(element)
-                    })}
-                    <button>Checkout</button>
-                </div>
-            </div>}
-            <div class="book-grid-container">
-                {books.map((book)=>{
-                        return BookComponent(book)
-                    })}
-                {/* <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li>4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn" onClick={addToCart}>Buy now</button> 
+                {cartToggle &&<div id='shopping-cart'>
+                    <div id='cart-header'>
+                        <div id='cart-icon-header' />
+                        <div id='cart-total-cost'>{cost}</div>
                     </div>
-                    <h6>based on 120 ratings</h6>  
-                </div>
-                <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li>4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn">Buy now</button> 
+                    <div id='cart-body'>
+                        {cartItems.map(element => {
+                            return CartBoook(element)
+                        })}
                     </div>
-                    <h6>based on 120 ratings</h6>  
-                </div>
-                <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li>4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn">Buy now</button> 
+                    <div id='cart-footer'>
+                        <button id='cart-checkout-btn'>Checkout</button>
                     </div>
-                    <h6>based on 120 ratings</h6>  
+                </div>}
+                <div class="book-grid-container">
+                    {books.map((book)=>{
+                            return BookComponent(book)
+                        })}
                 </div>
-                <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li>4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn">Buy now</button> 
-                    </div>
-                    <h6>based on 120 ratings</h6>  
-                </div>
-                <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li>4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn">Buy now</button> 
-                    </div>
-                    <h6>based on 120 ratings</h6>  
-                </div>
-                <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li>4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn">add to cart</button> 
-                    </div>
-                    <h6>based on 120 ratings</h6>  
-                </div>
-                <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li>4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn">Buy now</button> 
-                    </div>
-                    <h6>based on 120 ratings</h6>  
-                </div>
-                <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li>4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn">Buy now</button> 
-                    </div>
-                    <h6>based on 120 ratings</h6>  
-                </div>
-                <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li>4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn">Buy now</button> 
-                    </div>
-                    <h6>based on 120 ratings</h6>  
-                </div>
-                <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li class="star-number">4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn">Buy now</button> 
-                    </div>
-                    <h6>based on 120 ratings</h6>  
-                </div>
-                <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li>4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn">Buy now</button> 
-                    </div>
-                    <h6>based on 120 ratings</h6>  
-                </div>
-                <div class="book-content">
-                    <img src={c1} alt="book picture"/>
-                    <h4>Mickey mouse and his friends <br/><span>author:Walt disney</span></h4>
-                    <h5>Price:N3,500 <br/><span class="hard">hard cover</span></h5>
-                    <div class="list-btn">
-                        <ul>
-                            <li>4.5</li>
-                            <li><img src={star} alt="star rating" class="star"/></li>
-                        </ul> 
-                        <button class="btn">Buy now</button> 
-                    </div>
-                    <h6>based on 120 ratings</h6>  
-                </div> */}
-            </div>
         </header>  
     );
 }

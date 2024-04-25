@@ -145,6 +145,74 @@ h6 {
   margin-left: 61px;
 }
 
+
+
+#shopping-cart {
+  margin: 20px 0;
+  width: 450px;
+  z-index: 50;
+  position: absolute;
+  background: aliceblue;
+  padding: 10px;
+  top: 33px;
+  right: 20px;
+  #cart-header{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid;
+    border-style: none none solid;
+    margin-bottom: 5px;
+    #cart-icon-header{
+      width: 20px;
+      height: 20px;
+      background-image: url('images/cart\ icon.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position-y: center;
+      margin-left: 10px;
+    }
+    #cart-total-cost{
+      margin-right: 20px;
+      font-weight: bold;
+    }
+  }
+  #cart-body{
+    #cart-item-body{
+      display: flex;
+      margin: 5px;
+      #cart-books-img{
+        width: 7%;
+        height: 30px;
+      }
+      #cart-item-title{
+        margin: 0 5px 0 5px;
+        text-wrap: wrap;
+        font-weight: bold;
+        width: 50%;
+      }
+      #cart-item-qty{
+        margin: 0 5px 0 5px;
+        font-weight: 200;
+        width: 7%;
+      }
+      #cart-item-qty-input{
+        width: 17%;
+        margin-right: 5px;
+      }
+      #cart-remove-btn{
+        color: cornflowerblue;
+      }
+    }
+  }
+  #cart-footer{
+    #cart-checkout-btn{
+      float: right;
+      background: #056ef5;
+      outline: none;
+    }
+  }
+}
+
 .cart-panel {
   /* width: 5%; */
   /* height: auto; */
